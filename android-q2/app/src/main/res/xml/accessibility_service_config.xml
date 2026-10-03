@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityEventTypes="typeViewClicked|typeViewFocused|typeViewTextSelectionChanged|typeWindowStateChanged"
+    android:accessibilityFeedbackType="feedbackAudible|feedbackGeneric"
+    android:accessibilityFlags="flagDefault|flagIncludeNotImportantViews|flagRetrieveInteractiveWindows|flagRequestTouchExplorationMode"
+    android:canRetrieveWindowContent="true"
+    android:canRequestTouchExplorationMode="true"
+    android:description="@string/accessibility_desc"
+    android:notificationTimeout="100" />

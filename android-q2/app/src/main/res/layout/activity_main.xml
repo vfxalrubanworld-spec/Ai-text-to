@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0C0D0E"
+    tools:context=".MainActivity">
+
+    <!-- Top Action Bar -->
+    <LinearLayout
+        android:id="@+id/layoutHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        android:background="#141619"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Q2 Mobile Architect Studio"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnOverlayPermission"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enable Overlay"
+            android:textColor="#3D8BFF" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollControls"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader"
+        app:layout_constraintBottom_toTopOf="@id/layoutChatArea"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Provider Selector Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardBackgroundColor="#141619"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="#242830">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="14dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Active AI Provider (BYO-API)"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp"/>
+
+                    <Spinner
+                        android:id="@+id/spinnerProvider"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:backgroundTint="#FFFFFF"
+                        android:layout_marginBottom="10dp"/>
+
+                    <!-- Custom API Configuration Layout -->
+                    <LinearLayout
+                        android:id="@+id/layoutCustomApiConfig"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <EditText
+                            android:id="@+id/edtBaseUrl"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:hint="Custom Base URL"
+                            android:textColor="#FFFFFF"
+                            android:textColorHint="#6B7280"
+                            android:backgroundTint="#242830"
+                            android:inputType="textUri"
+                            android:layout_marginBottom="8dp"/>
+
+                        <EditText
+                            android:id="@+id/edtApiKey"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:hint="Custom API Secret Key"
+                            android:textColor="#FFFFFF"
+                            android:textColorHint="#6B7280"
+                            android:backgroundTint="#242830"
+                            android:inputType="textPassword"
+                            android:layout_marginBottom="8dp"/>
+
+                        <EditText
+                            android:id="@+id/edtModelId"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:hint="Model ID (e.g. gpt-4o)"
+                            android:textColor="#FFFFFF"
+                            android:textColorHint="#6B7280"
+                            android:backgroundTint="#242830"
+                            android:inputType="text"
+                            android:layout_marginBottom="10dp"/>
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btnSaveConfig"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Save Provider Settings"
+                        android:backgroundTint="#3D8BFF"
+                        android:textColor="#FFFFFF" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Whisper Local Sync Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/layoutWhisperStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardBackgroundColor="#1A1D21"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="#3D8BFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="14dp">
+
+                    <TextView
+                        android:id="@+id/txtWhisperStatus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Local Whisper engine model not initialized."
+                        android:textColor="#FFFFFF"
+                        android:textSize="13sp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <ProgressBar
+                        android:id="@+id/progressBarWhisper"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:progress="0"
+                        android:layout_marginBottom="10dp"
+                        android:visibility="gone"/>
+
+                    <Button
+                        android:id="@+id/btnDownloadWhisper"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Download Weights (140MB)"
+                        android:backgroundTint="#3D8BFF"
+                        android:textColor="#FFFFFF"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Top 5 Advanced Crazy Features Bar -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Top 5 'Crazy' Multimodal Actions"
+                android:textColor="#9CA3AF"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:rowCount="2"
+                android:layout_marginBottom="16dp"
+                android:alignmentMode="alignMargins"
+                android:columnOrderPreserved="false">
+
+                <Button
+                    android:id="@+id/btnScanScreen"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:text="Scan Screen Context"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:textColor="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/btnSummarizeChats"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:text="Summarize Chats"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:textColor="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/btnTranslateEsp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:text="Speech Translator"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:textColor="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/btnOfflineQuery"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:text="Proactive Retrieval"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:textColor="#FFFFFF" />
+            </GridLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Interactive Chat and Pulse visualizer Panel -->
+    <LinearLayout
+        android:id="@+id/layoutChatArea"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:orientation="vertical"
+        android:background="#141619"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerChat"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="8dp"/>
+
+        <ProgressBar
+            android:id="@+id/progressBarGeneral"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+        <!-- Wave Aura Pulse visualizer Container -->
+        <FrameLayout
+            android:id="@+id/waveVisualizer"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <View
+                android:layout_width="160dp"
+                android:layout_height="3dp"
+                android:background="#3D8BFF"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+
+        <!-- Bottom Text bar / Prompter -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:gravity="center_vertical">
+
+            <ImageButton
+                android:id="@+id/btnVoiceTrigger"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:background="@drawable/circle_button_bg"
+                android:src="@android:drawable/presence_audio_online"
+                android:tint="#FFFFFF"
+                android:contentDescription="Voice button"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginStart="12dp">
+
+                <TextView
+                    android:id="@+id/txtAssistantPrompt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tap to speak with Q2"
+                    android:textColor="#9CA3AF"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/edtTextQuery"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Ask Q2 anything..."
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#4B5563"
+                    android:background="@null"
+                    android:maxLines="2"
+                    android:imeOptions="actionSend"
+                    android:inputType="text" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,6 @@
+{
+  "name": "Q2 Mobile Architect Studio",
+  "description": "Production-grade companion workspace and interactive emulator for the Q2 AI on-device Android assistant codebase featuring offline Whisper and Accessibility context parsing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
